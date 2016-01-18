@@ -8,6 +8,7 @@ from random import shuffle
 import pickle
 import os.path
 import datetime
+from dateutil import tz
 
 from User import User
 
@@ -65,6 +66,8 @@ class Bot:
             self.office_hours_on = settings["officeHours"]["on"]
             self.office_hours_begin = settings["officeHours"]["begin"]
             self.office_hours_end = settings["officeHours"]["end"]
+            self.time_zone_server = settings["officeHours"]["timeZoneServer"]
+            self.time_zone_local = settings["officeHours"]["timeZoneLocal"]
 
             self.debug = settings["debug"]
 
@@ -269,9 +272,12 @@ def isOfficeHours(bot):
         if bot.debug:
             print "not office hours"
         return True
-    now = datetime.datetime.now()
-    now_time = now.time()
-    if now_time >= datetime.time(bot.office_hours_begin) and now_time <= datetime.time(bot.office_hours_end):
+    from_zone = tz.gettz(bot.time_zone_server)
+    to_zone = tz.gettz(bot.time_zone_local)
+    now = datetime.datetime.now().replace(tzinfo=from_zone).astimezone(to_zone).time()
+    begin = datetime.time(bot.office_hours_begin)
+    end = datetime.time(bot.office_hours_end)
+    if begin <= now and now <= end:
         if bot.debug:
             print "in office hours"
         return True

@@ -6,7 +6,9 @@
   "officeHours": {
     "on": false,
     "begin": 9,
-    "end": 17
+    "end": 17,
+    "timeZoneServer": "UTC",
+    "timeZoneLocal": "UTC"
    },
 
   "debug": false,
