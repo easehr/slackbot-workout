@@ -156,12 +156,12 @@ def selectExerciseAndStartTime(bot):
     exercise = selectExercise(bot)
 
     # Announcement String of next lottery time
-    lottery_announcement = "NEXT LOTTERY FOR " + exercise["name"].upper() + " IS IN " + str(minute_interval) + (" MINUTES" if minute_interval != 1 else " MINUTE")
+    # lottery_announcement = "NEXT LOTTERY FOR " + exercise["name"].upper() + " IS IN " + str(minute_interval) + (" MINUTES" if minute_interval != 1 else " MINUTE")
 
     # Announce the exercise to the thread
-    if not bot.debug:
-        requests.post(bot.post_URL, data=lottery_announcement)
-    print lottery_announcement
+    # if not bot.debug:
+    #    requests.post(bot.post_URL, data=lottery_announcement)
+    # print lottery_announcement
 
     # Sleep the script until time is up
     if not bot.debug:
@@ -195,7 +195,7 @@ def assignExercise(bot, exercise):
     # Select number of reps
     exercise_reps = random.randrange(exercise["minReps"], exercise["maxReps"]+1)
 
-    winner_announcement = str(exercise_reps) + " " + str(exercise["units"]) + " " + exercise["name"] + " RIGHT NOW "
+    winner_announcement = str(exercise_reps) + " " + str(exercise["units"]) + " " + exercise["name"] + " "
 
     # EVERYBODY
     if random.random() < bot.group_callout_chance:
