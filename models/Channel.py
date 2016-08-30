@@ -7,6 +7,7 @@ class Channel:
     def __init__(self, channel):
         self.id = channel["id"]
         self.name = channel["name"]
+        self.url = channel["url"]
         self.users = self.fetch_active_users()
 
     def fetch_active_users(self):

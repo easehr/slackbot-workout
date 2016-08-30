@@ -5,15 +5,22 @@
   "channels": [
     {
       "name": "fitness",
-      "id": "C0JPDE54K"
+      "id": "C0JPDE54K",
+      "url": "https://hooks.slack.com/services/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"
     },
     {
-      "name": "fitness",
-      "id": "C0JPDE54K"
+      "name": "sf-fitness",
+      "id": "C0JLKSDT5",
+      "url": "https://hooks.slack.com/services/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"
+    },
+    {
+      "name": "lv-fitness",
+      "id": "C26HE5UEN",
+      "url": "https://hooks.slack.com/services/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"
     }
   ],
 
-  "debug": true,
+  "debug": false,
   "num_people": 2,
   "sliding_window_size": 8,
   "group_callout_chance": 0.05,

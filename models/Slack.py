@@ -9,8 +9,7 @@ class Slack:
     TEAM_DOMAIN = Config.team_domain
     USER_TOKEN =  Config.user_token
     URL_TOKEN =  Config.url_token
-    API_BASE_URL = "https://slack.com/api/"
-    POST_BASE_URL = "https://" + TEAM_DOMAIN + ".slack.com/services/hooks/slackbot?token=" + URL_TOKEN + "&channel=" + HASH
+    BASE_URL = "https://slack.com/api/"
 
     @staticmethod
     def fetch_active_user_ids(channel_id):
@@ -44,15 +43,18 @@ class Slack:
         return status == "active"
 
     @staticmethod
-    def send_message(self, channel, message):
-        url = Slack.POST_BASE_URL + channel.name
-        # TODO
-        pass
+    def send_message(channel, message):
+        response = requests.post(channel.url,
+            data=json.dumps({
+                "text": message
+            })
+        )
+        print response.text
 
     @staticmethod
     def _fetch(endpoint, params):
         try:
-            response = requests.get(Slack.API_BASE_URL + endpoint, params=params)
+            response = requests.get(Slack.BASE_URL + endpoint, params=params)
             return json.loads(response.text, encoding="utf-8")
         except Exception, e:
             print "*** ERROR *** Error fetching " + endpoint + ": " + str(e)

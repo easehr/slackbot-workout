@@ -16,6 +16,6 @@ def main():
             time.sleep(3)
         else:
             print now
-            time.sleep(60)
+            time.sleep(59)
 
 main()

@@ -36,5 +36,5 @@ class BuffBot:
 
 
         if not Config.debug:
-            Slack.send_message(announcement)
+            Slack.send_message(self.channel, announcement)
         print announcement
