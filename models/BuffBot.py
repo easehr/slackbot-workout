@@ -31,7 +31,7 @@ class BuffBot:
             for i, handle in enumerate(handles):
                 announcement += handle
                 if i < len(handles) - 1:
-                     announcement += " and "
+                    announcement += " and "
             announcement += "!"
 
         return annoucement
