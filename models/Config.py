@@ -1,6 +1,7 @@
-import os
-import json
 import datetime
+import json
+import os
+import time
 from dateutil import tz
 
 CONFIG_FILE = "config.json"
@@ -8,6 +9,7 @@ CONFIG_FILE = "config.json"
 class Config:
 
     def __init__(self):
+        self.logfile = "log" + time.strftime("%Y%m%d-%H%M") + ".csv"
         with open(CONFIG_FILE, "r") as f:
             config = json.load(f)
             for k, v in config.items():

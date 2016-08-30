@@ -5,7 +5,7 @@
   "channel_name": "fitness",
   "channel_id": "C0JPDE54K",
 
-  "debug": false,
+  "debug": true,
   "num_people": 2,
   "sliding_window_size": 8,
   "group_callout_chance": 0.05,
