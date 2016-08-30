@@ -1,61 +1,58 @@
 import json
 import requests
-import time
 from models.Config import Config
 
-config = Config()
-
-USER_TOKEN_STRING =  config.user_token
-URL_TOKEN_STRING =  config.url_token
 HASH = "%23"
 
 class Slack:
 
-    def __init__(self):
-        self.user_queue = []
-        self.first_run = True
-        self.logfile = "log" + time.strftime("%Y%m%d-%H%M") + ".csv"
+    TEAM_DOMAIN = Config.team_domain
+    USER_TOKEN =  Config.user_token
+    URL_TOKEN =  Config.url_token
+    API_BASE_URL = "https://slack.com/api/"
+    POST_BASE_URL = "https://" + TEAM_DOMAIN + ".slack.com/services/hooks/slackbot?token=" + URL_TOKEN + "&channel=" + HASH
 
-        self.debug = config.debug
+    @staticmethod
+    def fetch_active_user_ids(channel_id):
+        response = Slack._fetch("channels.info",
+            params={
+                "token": Slack.USER_TOKEN,
+                "channel": channel_id
+            }
+        )
+        return response["channel"]["members"]
 
-        self.team_domain = config.team_domain
-        self.channel_id = config.channel_id
-        self.channel_name = config.channel_name
+    @staticmethod
+    def fetch_user(user_id):
+        response = Slack._fetch("users.info",
+            params={
+                "token": Slack.USER_TOKEN,
+                "user": user_id
+            }
+        )
+        return response["user"]
 
-        self.post_URL = "https://" + self.team_domain + ".slack.com/services/hooks/slackbot?token=" + URL_TOKEN_STRING + "&channel=" + HASH + self.channel_name
+    @staticmethod
+    def is_user_active(user_id):
+        response = Slack._fetch("users.getPresence",
+            params={
+                "token": Slack.USER_TOKEN,
+                "user": user_id
+            }
+        )
+        status = response["presence"]
+        return status == "active"
 
-    def send_message(self, message):
+    @staticmethod
+    def send_message(self, channel, message):
+        url = Slack.POST_BASE_URL + channel.name
         # TODO
         pass
 
-    def fetch_active_user_ids(self):
-        response = requests.get("https://slack.com/api/channels.info",
-            params={
-                "token": USER_TOKEN_STRING,
-                "channel": self.channel_id
-            }
-        )
-        return json.loads(response.text, encoding="utf-8")["channel"]["members"]
-
-    def fetch_user(self, id):
-        response = requests.get("https://slack.com/api/users.info",
-            params={
-                "token": USER_TOKEN_STRING,
-                "user": id
-            }
-        )
-        return json.loads(response.text, encoding="utf-8")["user"]
-
-    def is_user_active(self, id):
+    @staticmethod
+    def _fetch(endpoint, params):
         try:
-            response = requests.get("https://slack.com/api/users.getPresence",
-                params={
-                    "token": USER_TOKEN_STRING,
-                    "user": id
-                }
-            )
-            status = json.loads(response.text, encoding="utf-8")["presence"]
-            return status == "active"
-        except requests.exceptions.ConnectionError:
-            print "Error fetching online status for " + self.handle
-            return False
+            response = requests.get(Slack.API_BASE_URL + endpoint, params=params)
+            return json.loads(response.text, encoding="utf-8")
+        except Exception, e:
+            print "*** ERROR *** Error fetching " + endpoint + ": " + str(e)

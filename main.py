@@ -2,16 +2,17 @@ import time
 from datetime import datetime
 from models.Config import Config
 from models.BuffBot import BuffBot
-
-config = Config()
-buffbot = BuffBot()
+from models.Channel import Channel
 
 def main():
     while True:
         now = datetime.now()
-        if (config.is_business_hours and now.minute == 0) or config.debug:
-            print "assigning! is_business_hours: " + str(config.is_business_hours()) + " " + str(now)
-            buffbot.assign_exercise()
+        if (Config.is_business_hours(now) and now.minute == 0) or Config.debug:
+            print "assigning! is_business_hours: " + str(Config.is_business_hours(now)) + " " + str(now)
+            for data in Config.channels:
+                channel = Channel(data)
+                buffbot = BuffBot(channel)
+                buffbot.assign_exercise()
             time.sleep(3)
         else:
             print now

@@ -2,8 +2,16 @@
   "user_token": "xoxp-2698058516-4419142126-18791187975-cc67c78927",
   "url_token": "T1VaUJujb2hsUGeGPtWjtvTo",
   "team_domain": "ease",
-  "channel_name": "fitness",
-  "channel_id": "C0JPDE54K",
+  "channels": [
+    {
+      "name": "fitness",
+      "id": "C0JPDE54K"
+    },
+    {
+      "name": "fitness",
+      "id": "C0JPDE54K"
+    }
+  ],
 
   "debug": true,
   "num_people": 2,

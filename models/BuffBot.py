@@ -4,38 +4,26 @@ from models.Slack import Slack
 from models.User import User
 from models.Exercise import Exercise
 
-config = Config()
-
+# One BuffBot for each channel
 class BuffBot:
 
-    def __init__(self):
-        self.slack = Slack()
-        self.exercises = config.exercises
+    def __init__(self, channel):
+        self.channel = channel
+        self.exercises = Config.exercises
 
     def select_users(self):
-        selected_users = []
-        selected_ids = []
-        active_user_ids = self.slack.fetch_active_user_ids()
-        for x in range(config.num_people):
-            idx = random.randrange(0, len(active_user_ids))
-            user_id = active_user_ids[idx]
-            if user_id not in selected_ids:
-                selected_ids.append(user_id)
-        for id in selected_ids:
-            user = User(id)
-            if user.is_active:
-                selected_users.append(user)
-        return selected_users
-
-    def select_exercise(self):
-        idx = random.randrange(0, len(self.exercises))
-        return Exercise(self.exercises[idx]["id"])
+        users = []
+        for i in range(Config.num_people):
+            idx = random.randrange(0, len(self.channel.users))
+            user = self.channel.users[idx]
+            users.append(user)
+        return users
 
     def assign_exercise(self):
-        exercise = self.select_exercise()
+        exercise = Exercise.get_random()
         announcement = exercise.get_set() + " "
 
-        if random.random() < config.group_callout_chance:
+        if random.random() < Config.group_callout_chance:
             announcement += "@channel!"
         else:
             users = self.select_users()
@@ -47,6 +35,6 @@ class BuffBot:
             announcement += "!"
 
 
-        if not config.debug:
-            self.slack.send_message(announcement)
+        if not Config.debug:
+            Slack.send_message(announcement)
         print announcement
