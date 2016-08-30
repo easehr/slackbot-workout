@@ -19,14 +19,11 @@ class BuffBot:
             users.append(user)
         return users
 
-    def get_announcement(self):
-        exercise = Exercise.get_random()
+    def get_announcement(self, users, exercise):
         announcement = exercise.get_set() + " "
-
         if random.random() < Config.group_callout_chance:
             announcement += "@channel!"
         else:
-            users = self.select_users()
             handles = [user.handle for user in users]
             for i, handle in enumerate(handles):
                 announcement += handle
@@ -37,7 +34,9 @@ class BuffBot:
         return annoucement
 
     def assign_exercise(self):
-        annoucement = self.get_annoucement()
+        users = self.select_users()
+        exercise = Exercise.get_random()
+        annoucement = self.get_annoucement(users, exercise)
         if not Config.debug:
             Slack.send_message(self.channel, announcement)
         print announcement
