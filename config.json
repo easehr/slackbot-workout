@@ -1,64 +1,65 @@
 {
-  "teamDomain": "ease",
-  "channelName": "sf-fitness",
-  "channelId": "C0JLKSDT5",
-
-  "officeHours": {
-    "on": true,
-    "begin": 10,
-    "end": 17,
-    "timeZoneServer": "UTC",
-    "timeZoneLocal": "US/Pacific"
-   },
+  "user_token": "xoxp-2698058516-4419142126-18791187975-cc67c78927",
+  "url_token": "T1VaUJujb2hsUGeGPtWjtvTo",
+  "team_domain": "ease",
+  "channel_name": "fitness",
+  "channel_id": "C0JPDE54K",
 
   "debug": false,
+  "num_people": 2,
+  "sliding_window_size": 8,
+  "group_callout_chance": 0.05,
 
-  "callouts": {
-    "timeBetween": {
-      "minTime": 30,
-      "maxTime": 45,
-      "units": "minutes"
-    },
-    "numPeople": 2,
-    "slidingWindowSize": 8,
-    "groupCalloutChance": 0.05
-  },
+  "business_hours": {
+    "on": true,
+    "start": 10,
+    "end": 17,
+    "timezone_server": "UTC",
+    "timezone_local": "US/Pacific"
+   },
 
   "exercises": [
     {
       "id": 0,
       "name": "pushups",
-      "minReps": 15,
-      "maxReps": 20,
-      "units": "rep"
+      "quantities": [10, 15, 20, 25],
+      "unit": "rep"
     },
     {
       "id": 1,
-      "name": "planks",
-      "minReps": 40,
-      "maxReps": 60,
-      "units": "second"
+      "name": "chair dips",
+      "quantities": [15, 20, 25, 30],
+      "unit": "rep"
     },
     {
       "id": 2,
-      "name": "wall sit",
-      "minReps": 40,
-      "maxReps": 50,
-      "units": "second"
+      "name": "dumbbell curls",
+      "quantities": [10, 15],
+      "unit": "rep"
     },
     {
       "id": 3,
-      "name": "chair dips",
-      "minReps": 15,
-      "maxReps": 30,
-      "units": "rep"
+      "name": "planks",
+      "quantities": [40, 45, 50, 55, 60],
+      "unit": "second"
     },
     {
       "id": 4,
+      "name": "wall sit",
+      "quantities": [35, 40, 45, 50],
+      "unit": "second"
+    },
+    {
+      "id": 5,
+      "name": "squats",
+      "quantities": [5, 10, 15],
+      "unit": "rep"
+    },
+    {
+      "id": 6,
       "name": "calf raises",
-      "minReps": 20,
-      "maxReps": 30,
-      "units": "rep"
+      "quantities": [15, 20, 25, 30],
+      "unit": "rep"
     }
   ]
 }
