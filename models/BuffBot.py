@@ -19,7 +19,7 @@ class BuffBot:
             users.append(user)
         return users
 
-    def assign_exercise(self):
+    def get_announcement(self):
         exercise = Exercise.get_random()
         announcement = exercise.get_set() + " "
 
@@ -34,7 +34,10 @@ class BuffBot:
                      announcement += " and "
             announcement += "!"
 
+        return annoucement
 
+    def assign_exercise(self):
+        annoucement = get_annoucement()
         if not Config.debug:
             Slack.send_message(self.channel, announcement)
         print announcement
