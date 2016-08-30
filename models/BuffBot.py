@@ -37,7 +37,7 @@ class BuffBot:
         return annoucement
 
     def assign_exercise(self):
-        annoucement = get_annoucement()
+        annoucement = self.get_annoucement()
         if not Config.debug:
             Slack.send_message(self.channel, announcement)
         print announcement
