@@ -31,12 +31,12 @@ class BuffBot:
                     announcement += " and "
             announcement += "!"
 
-        return annoucement
+        return announcement
 
     def assign_exercise(self):
         users = self.select_users()
         exercise = Exercise.get_random()
-        annoucement = self.get_annoucement(users, exercise)
+        announcement = self.get_announcement(users, exercise)
         if not Config.debug:
             Slack.send_message(self.channel, announcement)
         print announcement
